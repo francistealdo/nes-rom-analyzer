@@ -39,6 +39,16 @@ public sealed class InesHeaderParser
         var usesVerticalMirroring = (flags6 & 0b0000_0001) != 0;
         var usesFourScreenVram = (flags6 & 0b0000_1000) != 0;
 
+        var mirroring = usesFourScreenVram
+            ? MirroringMode.FourScreen
+            : usesVerticalMirroring
+                ? MirroringMode.Vertical
+                : MirroringMode.Horizontal;
+
+        var format = (flags7 & 0b0000_1100) == 0b0000_1000
+            ? RomFormat.Nes20
+            : RomFormat.INes;
+
         return new NesRomInfo
         {
             FileName = fileName,
@@ -48,8 +58,8 @@ public sealed class InesHeaderParser
             MapperName = MapperNameResolver.Resolve(mapper),
             HasBattery = hasBattery,
             HasTrainer = hasTrainer,
-            UsesVerticalMirroring = usesVerticalMirroring,
-            UsesFourScreenVram = usesFourScreenVram
+            Mirroring = mirroring,
+            Format = format
         };
     }
 

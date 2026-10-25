@@ -9,8 +9,8 @@ public sealed class NesRomInfo
     public string MapperName { get; init; } = string.Empty;
     public bool HasBattery { get; init; }
     public bool HasTrainer { get; init; }
-    public bool UsesVerticalMirroring { get; init; }
-    public bool UsesFourScreenVram { get; init; }
+    public MirroringMode Mirroring { get; init; }
+    public RomFormat Format { get; init; }
 
     #region checksums
 
