@@ -21,22 +21,20 @@ public sealed class RomReader
             throw new FileNotFoundException("ROM file was not found.", filePath);
         }
 
-        using var stream = File.OpenRead(filePath);
+        var data = File.ReadAllBytes(filePath);
 
-        if (stream.Length < InesHeaderSize)
+        if (data.Length < InesHeaderSize)
         {
             throw new InvalidDataException("The file is too small to contain a valid iNES header.");
         }
 
-        Span<byte> header = stackalloc byte[InesHeaderSize];
+        var romInfo = _headerParser.Parse(Path.GetFileName(filePath), data.AsSpan(0, InesHeaderSize));
 
-        var bytesRead = stream.Read(header);
+        romInfo.FileSize = data.Length;
+        romInfo.Crc32 = ChecksumService.CalculateCrc32(data);
+        romInfo.Md5 = ChecksumService.CalculateMd5(data);
+        romInfo.Sha1 = ChecksumService.CalculateSha1(data);
 
-        if (bytesRead != InesHeaderSize)
-        {
-            throw new InvalidDataException("Unable to read the complete iNES header.");
-        }
-
-        return _headerParser.Parse(Path.GetFileName(filePath), header);
+        return romInfo;
     }
 }

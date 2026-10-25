@@ -1,4 +1,5 @@
 ﻿using NesRomAnalyzer.Core.Models;
+using NesRomAnalyzer.Core.Services;
 
 namespace NesRomAnalyzer.Core.Parsers;
 
@@ -44,6 +45,7 @@ public sealed class InesHeaderParser
             PrgRomSizeKb = prgRomSizeKb,
             ChrRomSizeKb = chrRomSizeKb,
             Mapper = mapper,
+            MapperName = MapperNameResolver.Resolve(mapper),
             HasBattery = hasBattery,
             HasTrainer = hasTrainer,
             UsesVerticalMirroring = usesVerticalMirroring,
