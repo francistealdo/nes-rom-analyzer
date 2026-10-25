@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="NesRomAnalyzer.Cli/NesRomAnalyzer.Cli.csproj" Id="baf495e5-4bf1-447b-9505-5503b4ae08ec" />
+  <Project Path="NesRomAnalyzer.Core/NesRomAnalyzer.Core.csproj" />
+</Solution>
