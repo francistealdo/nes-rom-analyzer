@@ -1,0 +1,154 @@
+﻿<Window x:Class="NesRomAnalyzer.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="NES ROM Analyzer"
+        Width="1100"
+        Height="750"
+        MinWidth="800"
+        MinHeight="550"
+        Background="#181C24"
+        Foreground="#E8EDF4"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#E8EDF4"/>
+        </Style>
+    </Window.Resources>
+
+    <DockPanel>
+
+        <!-- Toolbar -->
+        <Border DockPanel.Dock="Top"
+                Background="#242B36"
+                Padding="16,12">
+            <DockPanel>
+                <Button Content="Open ROM..."
+                        Width="130"
+                        Height="34"
+                        Background="#397EC4"
+                        Foreground="White"
+                        BorderThickness="0"
+                        FontWeight="SemiBold"
+                        Click="OpenRom_Click"
+                        DockPanel.Dock="Left"/>
+
+                <TextBlock x:Name="FileNameText"
+                           Text="No ROM loaded"
+                           Margin="20,0,0,0"
+                           VerticalAlignment="Center"
+                           Foreground="#B8C4D2"/>
+            </DockPanel>
+        </Border>
+
+        <!-- Status Bar -->
+        <Border DockPanel.Dock="Bottom"
+                Background="#242B36"
+                Padding="12,7">
+            <TextBlock x:Name="StatusText"
+                       Text="Ready"
+                       FontSize="12"/>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Margin="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- ROM Information -->
+            <Border Grid.Column="0"
+                    Background="#242B36"
+                    CornerRadius="6"
+                    Padding="16"
+                    Margin="0,0,12,0">
+
+                <StackPanel>
+                    <TextBlock Text="ROM INFORMATION"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Margin="0,0,0,20"/>
+
+                    <TextBlock Text="Format" Foreground="#91A0B3"/>
+                    <TextBlock x:Name="FormatText"
+                               Margin="0,3,0,14"/>
+
+                    <TextBlock Text="Mapper" Foreground="#91A0B3"/>
+                    <TextBlock x:Name="MapperText"
+                               Margin="0,3,0,14"/>
+
+                    <TextBlock Text="PRG ROM" Foreground="#91A0B3"/>
+                    <TextBlock x:Name="PrgText"
+                               Margin="0,3,0,14"/>
+
+                    <TextBlock Text="CHR ROM" Foreground="#91A0B3"/>
+                    <TextBlock x:Name="ChrText"
+                               Margin="0,3,0,14"/>
+
+                    <TextBlock Text="Mirroring" Foreground="#91A0B3"/>
+                    <TextBlock x:Name="MirroringText"
+                               Margin="0,3,0,14"/>
+
+                    <TextBlock Text="Battery / Trainer"
+                               Foreground="#91A0B3"/>
+                    <TextBlock x:Name="FlagsText"
+                               Margin="0,3,0,14"/>
+
+                    <Separator Margin="0,8,0,18"/>
+
+                    <TextBlock Text="CRC32" Foreground="#91A0B3"/>
+                    <TextBlock x:Name="CrcText"
+                               FontFamily="Consolas"
+                               Margin="0,3,0,14"/>
+
+                    <TextBlock Text="MD5" Foreground="#91A0B3"/>
+                    <TextBlock x:Name="Md5Text"
+                               FontFamily="Consolas"
+                               FontSize="11"
+                               TextWrapping="Wrap"
+                               Margin="0,3,0,14"/>
+
+                    <TextBlock Text="SHA1" Foreground="#91A0B3"/>
+                    <TextBlock x:Name="ShaText"
+                               FontFamily="Consolas"
+                               FontSize="11"
+                               TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+
+            <!-- CHR Viewer -->
+            <Border Grid.Column="1"
+                    Background="#242B36"
+                    CornerRadius="6"
+                    Padding="16">
+
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top"
+                                Margin="0,0,0,12">
+                        <TextBlock Text="CHR TILE VIEWER"
+                                   FontSize="16"
+                                   FontWeight="Bold"/>
+
+                        <TextBlock x:Name="TileCountText"
+                                   Text="No tiles loaded"
+                                   Foreground="#91A0B3"
+                                   FontSize="12"
+                                   Margin="0,5,0,0"/>
+                    </StackPanel>
+
+                    <ScrollViewer
+                        HorizontalScrollBarVisibility="Auto"
+                        VerticalScrollBarVisibility="Auto">
+
+                        <Image x:Name="ChrImage"
+                               Stretch="None"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+        </Grid>
+    </DockPanel>
+</Window>
