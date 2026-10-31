@@ -2,6 +2,7 @@
 using Microsoft.Win32;
 using NesRomAnalyzer.Core.Models;
 using NesRomAnalyzer.Core.Services;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -79,8 +80,7 @@ public partial class MainWindow : Window
         ChrImage.Source = tiles.Count == 0 ? null : CreateChrBitmap(tiles);
     }
 
-    private static WriteableBitmap CreateChrBitmap(
-        IReadOnlyList<NesTile> tiles)
+    private static WriteableBitmap CreateChrBitmap(IReadOnlyList<NesTile> tiles)
     {
         var columns = Math.Min(TilesPerRow, tiles.Count);
         var rows = (tiles.Count + columns - 1) / columns;
@@ -144,4 +144,50 @@ public partial class MainWindow : Window
 
         return bitmap;
     }
+
+    private void ExportChr_Click(object sender, RoutedEventArgs e)
+    {
+        if (ChrImage.Source is not BitmapSource bitmap)
+        {
+            MessageBox.Show(
+                "No CHR tiles available to export.",
+                "Export PNG",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+
+            return;
+        }
+
+        var dialog = new SaveFileDialog
+        {
+            Title = "Export CHR Tiles",
+            Filter = "PNG Image (*.png)|*.png",
+            FileName = "chr-tiles.png",
+            DefaultExt = ".png",
+            AddExtension = true
+        };
+
+        if (dialog.ShowDialog() != true)
+            return;
+
+        try
+        {
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(bitmap));
+
+            using var stream = File.Create(dialog.FileName);
+            encoder.Save(stream);
+
+            StatusText.Text = "CHR tiles exported successfully.";
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(
+                ex.Message,
+                "Export Error",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
+    }
+
 }

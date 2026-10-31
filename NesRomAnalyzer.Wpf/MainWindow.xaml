@@ -124,18 +124,31 @@
                     Padding="16">
 
                 <DockPanel>
-                    <StackPanel DockPanel.Dock="Top"
-                                Margin="0,0,0,12">
-                        <TextBlock Text="CHR TILE VIEWER"
-                                   FontSize="16"
-                                   FontWeight="Bold"/>
 
-                        <TextBlock x:Name="TileCountText"
-                                   Text="No tiles loaded"
-                                   Foreground="#91A0B3"
-                                   FontSize="12"
-                                   Margin="0,5,0,0"/>
-                    </StackPanel>
+                    <DockPanel DockPanel.Dock="Top" Margin="0,0,0,12">
+
+                        <Button Content="Export PNG..."
+                            DockPanel.Dock="Right"
+                            Width="120"
+                            Height="30"
+                            Background="#397EC4"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Click="ExportChr_Click"/>
+
+                        <StackPanel>
+                            <TextBlock Text="CHR TILE VIEWER"
+                               FontSize="16"
+                               FontWeight="Bold"/>
+
+                            <TextBlock x:Name="TileCountText"
+                               Text="No tiles loaded"
+                               Foreground="#91A0B3"
+                               FontSize="12"
+                               Margin="0,5,0,0"/>
+                        </StackPanel>
+                    </DockPanel>
+
 
                     <ScrollViewer
                         HorizontalScrollBarVisibility="Auto"

@@ -6,7 +6,12 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>Resources\nes_rom_analyzer.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\nes_rom_analyzer.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\NesRomAnalyzer.Core\NesRomAnalyzer.Core.csproj" />
